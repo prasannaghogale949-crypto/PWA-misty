@@ -1,0 +1,64 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+  ::selection {
+    background: theme("colors.gold.DEFAULT");
+    color: theme("colors.charcoal.DEFAULT");
+  }
+  :focus-visible {
+    outline: 2px solid theme("colors.gold.bright");
+    outline-offset: 2px;
+  }
+}
+
+@layer utilities {
+  /* Kraft-paper surface: warm fibrous base + subtle noise via layered radial gradients */
+  .kraft-surface {
+    background-color: theme("colors.kraft.DEFAULT");
+    background-image: theme("backgroundImage.kraft-fiber");
+    background-blend-mode: overlay;
+  }
+
+  /* Die-cut perforation edge, top & bottom, mimicking a torn postage stamp */
+  .perforated {
+    -webkit-mask-image: radial-gradient(
+        circle at 6px 0,
+        transparent 5px,
+        black 5.5px
+      ),
+      radial-gradient(circle at 6px 100%, transparent 5px, black 5.5px);
+    -webkit-mask-size: 12px 100%;
+    -webkit-mask-repeat: repeat-x;
+    -webkit-mask-position: left top, left bottom;
+    -webkit-mask-composite: source-in;
+    mask-image: radial-gradient(circle at 6px 0, transparent 5px, black 5.5px),
+      radial-gradient(circle at 6px 100%, transparent 5px, black 5.5px);
+    mask-size: 12px 100%;
+    mask-repeat: repeat-x;
+    mask-position: left top, left bottom;
+    mask-composite: intersect;
+  }
+
+  .foil-text {
+    background-image: theme("backgroundImage.gold-foil");
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+}
